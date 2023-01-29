@@ -1,0 +1,1218 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.IO;
+using System.IO.Ports;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace viceSetul3
+{
+    internal class Program
+    {
+        static void Main(string[]args)
+        {
+            Console.WriteLine("Scrieti numarul problemei pe care doriti sa o folositi:");
+            int Problema = int.Parse(Console.ReadLine());
+
+            switch (Problema)
+
+            {
+                case 1 :PB1(); break;
+                case 2 :PB2(); break;
+                case 3 :PB3(); break;
+                case 4 :PB4(); break;
+                case 5 :PB5(); break;
+                case 6 :PB6(); break;
+                case 7 :PB7(); break;
+                case 8 :PB8(); break;
+                case 9 :PB9(); break;
+                case 10:PB10();break;
+                case 11:PB11();break;
+                case 12:PB12();break;
+                case 13:PB13();break;
+                case 14:PB14();break;
+                case 15:PB15();break;
+                case 16:PB16();break;
+                case 17:PB17();break;
+                case 18:PB18();break;
+                case 19:PB19();break;
+                case 20:PB20();break;
+                case 21:PB21();break;
+                case 22:PB22();break;
+                case 23:PB23();break;
+                case 24:PB24();break;
+                case 25:PB25();break;
+                case 26:PB26(); break;
+                case 27:PB27(); break;
+                case 28:PB28(); break;
+                case 29:PB29(); break;
+                case 30:PB30(); break;
+                case 31:PB31(); break;
+               
+
+            }
+
+        }
+
+        private static void PB31()
+        {
+            //(Element majoritate). Intr-un vector cu n elemente, un element m este element majoritate daca mai mult de n/2 din
+            //valorile vectorului sunt egale cu m (prin urmare, daca un vector are element majoritate acesta este unui singur).
+            //Sa se determine elementul majoritate al unui vector (daca nu exista atunci se va afisa <nu exista>).
+            //(incercati sa gasiti o solutie liniara). 
+            Console.WriteLine("Introduceti vectorul:");
+            string[] t1 = Console.ReadLine().Split(' ');
+            int[] v1 = new int[t1.Length];
+            for(int i = 0; i < v1.Length; i++)
+                v1[i]=int.Parse(t1[i]);
+            int n = 0;
+            int p = 0;
+            int k = 0;
+            for (int i = 0; i < v1.Length; i++)
+            {
+                n = 0;
+                for (int j = 0; j < v1.Length; j++)
+                {
+                    if (i != j && v1[i] == v1[j])
+                    {
+                        n++;
+                    }
+                    if (n > v1.Length / 2)
+                    {
+                        k = v1[i];
+                        Console.WriteLine($"Elementul majoritate este {k}.");
+                        p = 1;
+                        break;
+                    }
+                }
+                if (p == 1) break;
+            }
+            if (p == 0) Console.WriteLine("Nu exista element majoritate.");
+            Console.ReadKey();
+        }
+
+        private static void PB30()
+        {
+            //Sortare bicriteriala. Se dau doi vectori de numere intregi E si W, unde E[i] este un numar iar W[i] este un numar care
+            //reprezinta ponderea lui E[i]. Sortati vectorii astfel incat elementele lui E sa fie in in ordine crescatoare iar
+            //pentru doua valori egale din E, cea cu pondere mai mare va fi prima. 
+        }
+
+        private static void PB29()
+        {
+            Console.WriteLine("Introduce-ti vectorul:");
+            string[] t = Console.ReadLine().Split(' ');
+            int[] arr = new int[t.Length];
+            for (int i = 0; i < arr.Length; i++)
+                arr[i] = int.Parse(t[i]);
+            Program ob=new Program();
+            ob.sort(arr, 0, arr.Length - 1);
+            printArray(arr);
+            Console.ReadKey();
+        }
+        void sort(int[] arr, int l, int r)
+        {
+            if (l < r)
+            {
+                int m = l + (r - l) / 2;
+                sort(arr, l, m);
+                sort(arr, m + 1, r);
+                merge(arr, l, m, r);
+            }
+        }
+        static void printArray(int[] arr)
+        {
+            int n = arr.Length;
+            for (int i = 0; i < n; ++i)
+                Console.Write(arr[i] + " ");
+            Console.WriteLine();
+        }
+
+
+        void merge(int[] arr, int l, int m, int r)
+        {
+            int n1 = m - l + 1;
+            int n2 = r - m;
+
+            int[] L = new int[n1];
+            int[] R = new int[n2];
+            int i, j;
+
+            for (i = 0; i < n1; ++i)
+                L[i] = arr[l + i];
+            for (j = 0; j < n2; ++j)
+                R[j] = arr[m + 1 + j];
+
+            j = 0;
+
+            int k = l;
+            while (i < n1 && j < n2)
+            {
+                if (L[i] <= R[j])
+                {
+                    arr[k] = L[i];
+                    i++;
+                }
+                else
+                {
+                    arr[k] = R[j];
+                    j++;
+                }
+                k++;
+            }
+
+            while (i < n1)
+            {
+                arr[k] = L[i];
+                i++;
+                k++;
+            }
+
+            while (j < n2)
+            {
+                arr[k] = R[j];
+                j++;
+                k++;
+            }
+        }
+
+
+        private static void PB28()
+        {
+            Console.WriteLine("Introduceti vectorul:");
+            string[] t = Console.ReadLine().Split(' ');
+            int[] arr = new int[t.Length];
+            int n = arr.Length;
+
+            quickSort(arr, 0, n - 1);
+            Console.Write("Sorted array: ");
+            printArray(arr, n);
+        }
+       
+    static void swap(int[] arr, int i, int j)
+    {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+    static int partition(int[] arr, int low, int high)
+    {
+
+        int pivot = arr[high];
+
+        int i = (low - 1);
+
+        for (int j = low; j <= high - 1; j++)
+        {
+
+            if (arr[j] < pivot)
+            {
+                i++;
+                swap(arr, i, j);
+            }
+        }
+        swap(arr, i + 1, high);
+        return (i + 1);
+    }
+    static void quickSort(int[] arr, int low, int high)
+    {
+        if (low < high)
+        {
+            int pi = partition(arr, low, high);
+
+            quickSort(arr, low, pi - 1);
+            quickSort(arr, pi + 1, high);
+        }
+    }
+
+    static void printArray(int[] arr, int size)
+    {
+        for (int i = 0; i < size; i++)
+            Console.Write(arr[i] + " ");
+
+        Console.WriteLine();
+    }
+    private static void PB27()
+        {
+            //Se da un vector si un index in vectorul respectiv.
+            //Se cere sa se determine valoarea din vector care va fi pe pozitia index dupa ce vectorul este sortat.
+            Console.WriteLine("Introduce-ti vectorul:");
+            string[] t = Console.ReadLine().Split(' ');
+            long[] v = new long[t.Length];
+            Console.WriteLine("Introduce-ti indexul:");
+            long n = long.Parse(Console.ReadLine());
+            for(int i=0;i<v.Length;i++)
+                v[i] = int. Parse(t[i]);
+            for (int i = 0; i < v.Length - 1; i++)
+            {
+                int min = i;
+                for (int j = i + 1; j < v.Length; j++)
+                {
+                    if (v[j] < v[min])
+                    {
+                        min = j;
+                    }
+                }
+                long aux = v[min];
+                v[min] = v[i];
+                v[i] = aux;
+            }
+            for (int i = 0; i < v.Length; i++)
+                if (n == i)
+                {
+                    Console.WriteLine($"Valoarea din vector de pe pozitia index este {v[n]}.");
+                    break;
+                }
+
+
+            Console.ReadKey();
+        }
+
+        private static void PB26()
+        {
+            //Se dau doua numere naturale foarte mari (cifrele unui numar foarte mare sunt stocate intr-un vector
+            //- fiecare cifra pe cate o pozitie). Se cere sa se determine suma, diferenta si produsul a doua astfel de numere.
+            Console.WriteLine("Introduceti vectorul v1 care reprezinta cifrele primului nr:");
+            string[] t1 = Console.ReadLine().Split(' ');
+            long[] v1=new long[t1.Length];
+            Console.WriteLine("Introduce-ti vectorul v2 care reprezinta al doilea nr:");
+            string[] t2=Console.ReadLine().Split(' ');
+            long[] v2=new long[t2.Length];
+            for (int i = 0; i < v1.Length; i++)
+                v1[i] = int.Parse(t1[i]);
+            for (int i = 0; i < v2.Length; i++)
+                v2[i] = int.Parse(t2[i]);
+            long n = 0;
+            for(int i= 0; i < v1.Length; i++)
+                n=n*10+v1[i];
+            long m = 0;
+            for(int i=0;i< v2.Length; i++)
+                m=m*10+v2[i];
+            long s = n + m, d = n - m, p = n * m;
+            Console.WriteLine($"Suma este {s}, produsul este {p}, iar diferenta este {d}.");
+
+            Console.ReadKey();
+        }
+
+        private static void PB25()
+        {
+            //(Interclasare) Se dau doi vector sortati crescator v1 si v2. Construiti un al treilea vector ordonat crescator
+            //format din toate elementele din  v1 si v2. Sunt permise elemente duplicate. 
+            Console.WriteLine("Introduceti vectorul v1:");
+            string[] t1 = Console.ReadLine().Split(' ');
+            int[] v1 = new int[t1.Length];
+            Console.WriteLine("Introduceti vectorul v2:");
+            string[] t2 = Console.ReadLine().Split(' ');
+            int[] v2 = new int[t2.Length];
+            for (int i = 0; i < v1.Length; i++)
+                v1[i] = int.Parse(t1[i]);
+            for (int i = 0; i < v2.Length; i++)
+                v2[i] = int.Parse(t2[i]);
+            int[] v4 = new int[v1.Length + v2.Length];
+
+            int o = 0;
+
+            for (int i = 0; i < v1.Length; i++)
+            {
+                v4[i] = v1[i];
+                o++;
+            }
+            for (int j = 0; j < v2.Length; j++)
+            {
+                v4[o] = v2[j];
+                o++;
+            }
+
+            for (int i = 0; i < o - 1; i++)
+            {
+                int min = i;
+                for (int j = i + 1; j < o; j++)
+                {
+                    if (v4[j] < v4[min])
+                    {
+                        min = j;
+                    }
+                }
+                int aux = v4[min];
+                v4[min] = v4[i];
+                v4[i] = aux;
+            }
+
+                Console.WriteLine("Al trilea vetor ordonat crescator v-a arata asa:");
+            for (int i = 0; i < o; i++)
+                Console.Write(v4[i] + " ");
+
+
+            Console.ReadKey();
+
+        }
+        private static void PB24()
+        {
+            //Aceleasi cerinte ca si la problema anterioara dar de data asta elementele sunt stocate ca vectori cu valori binare
+            //(v[i] este 1 daca i face parte din multime si este 0 in caz contrar).
+        }
+
+        private static void PB23()
+        {
+            //Aceleasi cerinte ca si la problema anterioara dar de data asta elementele din v1 respectiv v2  sunt in ordine
+            //strict crescatoare.
+            Console.WriteLine("Introduceti vectorul v1:");
+            string[] t1 = Console.ReadLine().Split(' ');
+            int[] v1 = new int[t1.Length];
+            Console.WriteLine("Introduceti vectorul v2:");
+            string[] t2 = Console.ReadLine().Split(' ');
+            int[] v2 = new int[t2.Length];
+            for (int i = 0; i < v1.Length; i++)
+                v1[i] = int.Parse(t1[i]);
+            for (int i = 0; i < v2.Length; i++)
+                v2[i] = int.Parse(t2[i]);
+            int[] v3 = new int[v1.Length + v2.Length];
+            int p = 0;
+
+            for (int i = 0; i < v1.Length; i++)
+            {
+                for (int j = 0; j < v2.Length; j++)
+                {
+                    if (v1[i] == v2[j])
+                    {
+                        v3[p] = v1[i];
+                        p++;
+                        break;
+                    }
+                }
+            }
+            int aux = p;
+
+            for (int i = 0; i < aux; i++)
+            {
+                for (int j = 0; j < aux; j++)
+                {
+                    if (j != i && v3[i] == v3[j])
+                    {
+                        for (int k = j; k < aux - 1; k++)
+                        {
+                            v3[k] = v3[k + 1];
+                        }
+                        aux--;
+                    }
+                }
+            }
+
+            for (int i = 0; i < aux -1; i++)
+            {
+                int min = i;
+                for (int j = i + 1; j < aux; j++)
+                {
+                    if (v3[j] < v3[min])
+                    {
+                        min = j;
+                    }
+                }
+                int a = v3[min];
+                v3[min] = v3[i];
+                v3[i] = a;
+            }
+
+            Console.WriteLine("Intersectia vectorilor ordonata crescator v-a arata asa:");
+            for (int i = 0; i < aux; i++)
+                Console.Write(v3[i] + " ");
+            Console.WriteLine();
+
+
+            int[] v4 = new int[v1.Length + v2.Length];
+            int o = 0;
+
+            for (int i = 0; i < v1.Length; i++)
+            {
+                v4[i] = v1[i];
+                o++;
+            }
+            for (int j = 0; j < v2.Length; j++)
+            {
+                v4[o] = v2[j];
+                o++;
+            }
+
+            for (int i = 0; i < o; i++)
+            {
+                for (int j = 0; j < o; j++)
+                {
+                    if (j != i && v4[i] == v4[j])
+                    {
+                        for (int k = j; k < o - 1; k++)
+                        {
+                            v4[k] = v4[k + 1];
+                        }
+                        o--;
+                    }
+                }
+            }
+            for (int i = 0; i < o-1; i++)
+            {
+                int minim = i;
+                for (int j = i + 1; j < o; j++)
+                {
+                    if (v4[j] < v4[minim])
+                    {
+                        minim = j;
+                    }
+                }
+                int b = v4[minim];
+                v4[minim] = v4[i];
+                v4[i] = b;
+            }
+
+            Console.WriteLine("Reuniunea vectorilor ordonata crescator v-a arata asa:");
+            for (int i = 0; i < o; i++)
+                Console.Write(v4[i] + " ");
+
+
+            Console.ReadKey();
+
+        }
+
+        private static void PB22()
+        {
+            //Se dau doi vectori v1 si v2.Se cere sa determine intersectia, reuniunea, si diferentele v1 - v2 si v2 -v1
+            //(implementarea operatiilor cu multimi).Elementele care se repeta vor fi scrise o singura data in rezultat.
+            Console.WriteLine("Introduceti vectorul v1:");
+            string[] t1=Console.ReadLine().Split(' ');
+            int[] v1= new int[t1.Length];
+            Console.WriteLine("Introduceti vectorul v2:");
+            string[] t2=Console.ReadLine().Split(' ');
+            int[] v2= new int[t2.Length];
+            for(int i=0; i<v1.Length; i++)
+                v1[i]=int.Parse(t1[i]);
+            for(int i=0; i<v2.Length; i++)
+                v2[i]=int.Parse(t2[i]);
+            int[] v3 = new int[v1.Length + v2.Length];
+            int p = 0;
+
+            for(int i=0;i<v1.Length;i++)
+            {
+                for(int j=0;j<v2.Length;j++)
+                {
+                    if(v1[i]==v2[j])
+                    {
+                        v3[p]=v1[i];
+                        p++;
+                        break;
+                    }
+                }
+            }
+            int aux = p;
+
+            for (int i = 0; i < aux; i++)
+            {
+                for (int j = 0; j < aux; j++)
+                {
+                    if (j != i && v3[i] == v3[j])
+                    {
+                        for (int k = j; k < aux - 1; k++)
+                        {
+                            v3[k] = v3[k + 1];
+                        }
+                        aux--;
+                    }
+                }
+            }
+
+            Console.WriteLine("Intersectia vectorilor v-a arata asa:");
+            for (int i = 0; i < aux; i++)
+                Console.Write(v3[i] + " ");
+            Console.WriteLine();
+
+
+            int[] v4 = new int[v1.Length + v2.Length];
+            int o = 0;
+
+            for (int i = 0; i < v1.Length; i++)
+            {
+                v4[i] = v1[i];
+                o++;
+            }
+            for (int j = 0; j < v2.Length;j++)
+            {
+                v4[o] = v2[j];
+                o++;
+            }
+
+            for (int i = 0; i < o; i++)
+            {
+                for (int j = 0; j < o; j++)
+                {
+                    if (j != i && v4[i] == v4[j])
+                    {
+                        for (int k = j; k < o - 1; k++)
+                        {
+                            v4[k] = v4[k + 1];
+                        }
+                        o--;
+                    }
+                }
+            }
+
+            Console.WriteLine("Reuniunea vectorilor v-a arata asa:");
+            for (int i = 0; i < o; i++)
+                Console.Write(v4[i] + " ");
+
+
+            Console.ReadKey();
+        }
+
+        private static void PB21()
+        {
+            //Se dau doi vectori. Se cere sa se determine ordinea lor lexicografica(care ar trebui sa apara primul in dictionar).
+
+        }
+
+        private static void PB20()
+        {
+            //Se dau doua siraguri de margele formate din margele albe si negre, notate s1, respectiv s2.
+            //Determinati numarul de suprapuneri (margea cu margea) a unui sirag peste celalalt astfel incat margelele suprapuse
+            //au aceeasi culoare. Siragurile de margele se pot roti atunci cand le suprapunem. 
+
+        }
+
+        private static void PB19()
+        {
+            //Se da un vector s (vectorul in care se cauta) si un vector p (vectorul care se cauta).
+            //Determinati de cate ori apare p in s. De ex. Daca s = [1,2,1,2,1,3,1,2,1] si p = [1,2,1] atunci p apare in s de 3 ori.
+            //(Problema este dificila doar daca o rezolvati cu un algoritm liniar).
+
+            Console.WriteLine("Introduceti vectorul s pe un singur rand cu spatiu intre numere:");
+            string[] t1 =Console.ReadLine().Split(' ');
+            int[] s = new int[t1.Length];
+            for (int i = 0; i < s.Length; i++)
+            {
+                s[i] = int.Parse(t1[i]);
+            }
+            Console.WriteLine("Introduceti vectorul p pe un singur rand cu spatiu intre numere:");
+            string[] t2 = Console.ReadLine().Split(' ');
+            int[] p = new int[t2.Length];
+            for (int i = 0; i < p.Length; i++)
+            {
+                p[i] = int.Parse(t2[i]);
+            }
+            int nr = 0;
+            bool ok = false;
+            for (int i = 0; i < s.Length - p.Length + 1; i++)
+            {
+                if (s[i] == p[0])
+                {
+                    ok = true;
+                    for (int j = 1; j < p.Length; j++)
+                    {
+                        if (p[j] != s[i + j])
+                        {
+                            ok = false;
+                        }
+                    }
+                    if (ok) nr++;
+                }
+            }
+            Console.WriteLine($"Vectorul p apare de {nr} ori in vectorul s.");
+            Console.ReadKey();
+        }
+
+        static double val(double[] P, double x)
+        {
+            double tor = 0;
+            for (int i = 0; i < P.Length; i++)
+            {
+                tor += P[i] * Math.Pow(x, i);
+            }
+            return tor;
+        }
+        private static void PB18()
+        {
+            //Se da un polinom de grad n ai carui coeficienti sunt stocati intr-un vector.
+            //Cel mai putin semnificativ coeficient este pe pozitia zero in vector. Se cere valoarea polinomului intr-un punct x. 
+            Console.WriteLine("Introduceti nr n:");
+            int n = int.Parse(Console.ReadLine());
+            double[] P = new double[n];
+            Console.WriteLine("Introduceti  un vectorul pe un singur rand cu spatiu intre numere:");
+            string[] t = Console.ReadLine().Split(' ');
+            for (int i = 0; i < n; i++)
+            {
+                P[i] = double.Parse(t[i]);
+            }
+            Console.WriteLine("Scrieti punctul in care dorit sa aflati valoarea polinomului:");
+            double x = double.Parse(Console.ReadLine());
+            Console.Write(val(P, x).ToString());
+            Console.ReadKey();
+        }
+
+        private static void PB17()
+        {
+            //Se da un numar n in baza 10 si un numar b. 1 < b < 17. Sa se converteasca si sa se afiseze numarul n in baza b.
+            Console.WriteLine("Introduceti nr n:");
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine("Introduceti  un numar natural din intervalul (1,17):");
+            int b=int.Parse(Console.ReadLine());
+
+
+
+            Console.ReadKey();
+        }
+
+        private static void PB16()
+        {
+            //Se da un vector de n numere naturale. Determinati cel mai mare divizor comun al elementelor vectorului.
+            Console.WriteLine("Introduceti nr n:");
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine("Introduceti  un vectorul pe un singur rand cu spatiu intre numere:");
+            int[] v = new int[n];
+            string[] t = Console.ReadLine().Split(' ');
+
+            for (int i = 0; i < n; i++)
+            {
+                v[i] = int.Parse(t[i]);
+            }
+            int cmmdc = 1;
+            int p = 2;
+
+            for(int i = 0; i <= v[0]; i++)
+            {
+                bool ok = true;
+                for(int j=0;j<n; j++)
+                {
+                    if (v[j] % p != 0)
+                    {
+                        ok = false;
+                        break;
+                    }
+                }
+                if(ok)
+                {
+                    cmmdc=p;
+                }
+                p++;
+            }
+            Console.WriteLine($"Cel mai mare divizor comun al vecorului este {cmmdc}.");
+
+            Console.ReadKey();
+        }
+
+        private static void PB15()
+        {
+            //Modificati un vector prin eliminarea elementelor care se repeta, fara a folosi un alt vector.
+            Console.WriteLine("Introduceti nr n:");
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine("Introduceti  un vectorul pe un singur rand cu spatiu intre numere:");
+            int[] v = new int[n];
+            string[] t = Console.ReadLine().Split(' ');
+
+            for(int i=0;i<n;i++)
+            {
+                v[i] = int.Parse(t[i]);
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                for(int j=0;j<n;j++)
+                {
+                    if (j != i && v[i] == v[j])
+                    {
+                        for(int k=j;k<n-1;k++)
+                        {
+                            v[k] = v[k + 1];
+                        }
+                        n--;
+                    }
+                }
+            }
+           
+            Console.WriteLine("Vectorul v-a arata asa:");
+            for (int i = 0; i < n; i++)
+            {
+                Console.Write(v[i] + " ");
+            }
+
+            Console.ReadKey();
+        }
+
+        private static void PB14()
+        {
+            //Interschimbati elementele unui vector in asa fel incat la final toate valorile egale cu zero sa ajunga la sfarsit.
+            //(nu se vor folosi vectori suplimentari - operatia se va realiza inplace cu un algoritm eficient -
+            //se va face o singura parcugere a vectorului).
+            Console.WriteLine("Introduceti nr n:");
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine("Introduceti  un vectorul pe un singur rand cu spatiu intre numere:");
+            int[] v = new int[n];
+            string[] t = Console.ReadLine().Split(' ');
+
+            for (int i = 0; i < n; i++)
+            {
+                v[i] = int.Parse(t[i]);
+            }
+
+            int aux = n;
+            for(int i= 0; i < n; i++)
+            {
+                while(v[i] == 0)
+                {
+                    for(int j=i;j<n-1;j++)
+                    {
+                        v[j] = v[j + 1];
+                    }
+                        v[n - 1] = 0;
+                        n = n - 1;  
+                }
+                if (v[n - 1] == 0) { n--; }
+            }
+
+            Console.WriteLine("Vectorul v-a arata asa:");
+            for (int i = 0; i < aux; i++)
+            {
+                Console.Write(v[i] + " ");
+            }
+
+            Console.ReadKey();
+            
+        }
+
+        private static void PB13()
+        {
+            //Sortare prin insertie.Implementati algoritmul de sortare<Insertion Sort>.
+            Console.WriteLine("Introduceti nr n:");
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine("Introduceti  un vectorul pe un singur rand cu spatiu intre numere:");
+            int[] v = new int[n];
+            string[] t = Console.ReadLine().Split(' ');
+       
+            for (int i = 0; i < n; i++)
+            {
+                v[i]=int.Parse(t[i]);
+            }
+
+            for(int i = 1; i < n; i++)
+            {
+                int key = v[i];
+                int j = i - 1;
+                while(j >= 0 && v[j] > key)
+                {
+                    v[j + 1] = v[j];
+                    j--;
+                }
+                v[j+1] = key;
+            }
+            Console.WriteLine("Vectorul ordonat crescator v-a arata asa:");
+            for(int i = 0; i<n;i++)
+            {
+                Console.Write(v[i] + " ");
+            }
+
+            Console.ReadKey();
+
+        }
+
+     
+        private static void PB12()
+        {
+            //Sortare selectie. Implementati algoritmul de sortare <Selection Sort>. 
+            Console.WriteLine("Introduceti nr. n care reprezinta lungimea vectorului:");
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine("Introduceti un vectorul pe un singur rand cu spatiu intre numere:");
+            int[] v = new int[n];
+            string[] t = Console.ReadLine().Split(' ');
+
+            for (int i = 0; i < n; i++)
+            {
+                v[i] = int.Parse(t[i]);
+            }
+
+            for(int i = 0; i < n - 1; i++)
+            {
+                int min = i;
+                for(int j = i + 1; j < n; j++)
+                {
+                    if(v[j] < v[min])
+                    {
+                        min = j;
+                    }
+                }
+                int aux = v[min];
+                v[min] = v[i];
+                v[i] = aux;
+            }
+            Console.WriteLine("Vectorul ordonat crescator v-a arata asa:");
+            for(int i = 0; i<n; i++)
+            {
+                Console.Write(v[i] + " ");
+            }
+
+            Console.ReadKey();
+        }
+
+        private static void PB11()
+        {
+            //Se da un numar natural n. Se cere sa se afiseze toate numerele prime mai mici sau egale cu n (ciurul lui Eratostene).
+            Console.WriteLine("Introduceti nr n:");
+            int n = int.Parse(Console.ReadLine());
+            int[] v = new int[n];
+            //v[x] = { 0 , daca x prim }
+            //v[x] = { 1 , daca x neprim }
+            for(int i = 0; i < n; i++)
+            {
+                v[i] = 0;
+            }
+            v[0] = 1;
+            v[1] = 1;
+
+            for(int i=2; i <(double)Math.Sqrt(n); i++)
+            {
+                if(v[i] == 0)
+                {
+                    for (int j = 2; j < (float)n / i; j++)
+                    {
+                        v[i * j] = 1;
+                    }
+                }
+            }
+            Console.WriteLine($"Numerele prime mai mici decat {n} sunt:");
+            for (int i = 0; i < n; i++)
+            {
+                if (v[i]==0)
+                {
+                    Console.Write(i+" ");
+                }
+            }
+            Console.ReadKey();
+
+        }
+
+        private static void PB10()
+        {
+            //Cautare binara. Se da un vector cu n elemente sortat in ordine crescatoare.
+            //Se cere sa se determine pozitia unui element dat k. Daca elementul nu se gaseste in vector rezultatul va fi -1.
+            Console.WriteLine("Introduceti nr n:");
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine("Introduceti  un vectorul crescator pe un singur rand cu spatiu intre numere:");
+            int[] v = new int[n];
+            string[] t = Console.ReadLine().Split(' ');
+            Console.WriteLine("Introduceti o pozitie k din vector:");
+            int k = int.Parse(Console.ReadLine());
+            int a = 0;
+
+            for (int i = 0; i < n; i++)
+            {
+                v[i] = int.Parse(t[i]);
+                if (v[i] == k)
+                {
+                     a = i;
+                }
+               
+            }
+            if(a == 0) { Console.WriteLine("-1");return; }
+            Console.Write($"Pozitia lui {k} este {a}.");
+
+            Console.ReadKey();
+        }
+    
+
+        private static void PB9()
+        {
+            //Rotire k. Se da un vector cu n elemente. Rotiti elementele vectorului cu k pozitii spre stanga. 
+            Console.WriteLine("Introduceti nr n:");
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine("Introduceti vectorul pe un singur rand cu spatiu intre numere:");
+            int[] v = new int[n];
+            string[] t = Console.ReadLine().Split(' ');
+            Console.WriteLine("Introduceti nr k:");
+            int k = int.Parse(Console.ReadLine());
+            Console.WriteLine("Astfel obtinem vectorul:");
+            int y = 1;
+                for (int i = 0; i < n; i++)
+                {
+                    if (y == n)
+                    {
+                        v[i] = int.Parse(t[0]);
+                        break;
+                    }
+                    v[i] = int.Parse(t[y]);
+                    y++;
+
+                }
+                k--;
+                y = 1;
+                int aux = 1;
+            while (k > 0)
+            {
+                y = 1;
+                for (int i = 0; i < n; i++)
+                {
+                    if (y == n)
+                    {
+                        v[i] = int.Parse(t[aux]);
+                        aux++;
+                        break;
+                    }
+                    v[i] = v[i + 1];
+                    y++;
+
+                }
+                k -= 1;
+            }
+            
+            for(int i = 0; i < n; i++)
+            {
+                Console.Write(v[i] + " ");
+            }
+            
+
+            Console.ReadKey();
+        }
+
+        private static void PB8()
+        {
+            //Rotire. Se da un vector cu n elemente. Rotiti elementele vectorului cu o pozitie spre stanga.
+            //Prin rotire spre stanga primul element devine ultimul, al doilea devine primul etc. 
+            Console.WriteLine("Introduceti nr n:");
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine("Introduceti vectorul pe un singur rand cu spatiu intre numere:");
+            int[] v = new int[n];
+            string[] t = Console.ReadLine().Split(' ');
+            int k = 1;
+            Console.WriteLine("Astfel obtinem vectorul:");
+
+            for (int i = 0; i < n; i++)
+            {
+                if(k == n)
+                {
+                    v[i] = int.Parse(t[0]);
+                    Console.WriteLine(v[i]);
+                    break;
+                }
+                v[i] = int.Parse(t[k]);
+                k++;
+                Console.Write(v[i] + " ");
+            }
+
+            Console.ReadKey();
+        }
+
+        private static void PB7()
+        {
+            //Reverse. Se da un vector cu n elemente. Se cere sa se inverseze ordinea elementelor din vector.
+            //Prin inversare se intelege ca primul element devine ultimul, al doilea devine penultimul etc.
+            Console.WriteLine("Introduceti nr n:");
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine("Introduceti vectorul pe un singur rand cu spatiu intre numere:");
+            int[] v = new int[n];
+            string[] t = Console.ReadLine().Split(' ');
+            int k = n;
+            Console.WriteLine("Astfel obtinem vectorul:");
+
+            for (int i = 0; i < n; i++)
+            {
+                v[i] = int.Parse(t[k-1]);
+                k--;
+                Console.Write(v[i]+" ");
+            }
+            
+            Console.ReadKey();
+        }
+
+        private static void PB6()
+        {
+            //Se da un vector cu n elemente si o pozitie din vector k. Se cere sa se stearga din vector elementul de pe pozitia k.
+            //Prin stergerea unui element, toate elementele din dreapta lui se muta cu o pozitie spre stanga. 
+            Console.WriteLine("Introduceti nr n:");
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine("Introduceti vectorul pe un singur rand cu spatiu intre numere:");
+            int[] v = new int[n];
+            string[] t = Console.ReadLine().Split(' ');
+            Console.WriteLine("Introduceti o pozitie k din vector:");
+            int k = int.Parse(Console.ReadLine());
+            Console.WriteLine("Astfel obtinem vectorul:");
+            int a = 0;
+
+            for (int i = 0; i < n; i++)
+            {
+                if (i == n - 1) { break; }
+                if (a == 1)
+                {
+                    v[i] = int.Parse(t[i + 1]);
+                    Console.Write(v[i] + " ");
+                }
+                if (a == 0)
+                {
+                    v[i] = int.Parse(t[i]);
+                    if (i == k)
+                    {
+                        v[i] = int.Parse(t[i + 1]);
+                        a = 1;
+                    }
+                    Console.Write(v[i] + " ");
+                }
+                
+            }
+
+
+            Console.ReadKey();
+        }
+
+        private static void PB5()
+        {
+            //Se da un vector cu n elemente, o valoare e si o pozitie din vector k.Se cere sa se insereze valoarea e in vector
+            //pe pozitia k. Primul element al vectorului se considera pe pozitia zero. 
+            Console.WriteLine("Introduceti nr n:");
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine("Introduceti vectorul pe un singur rand cu spatiu intre numere:");
+            int[] v = new int[n];
+            string[] t = Console.ReadLine().Split(' ');
+            Console.WriteLine("Introduceti o valoare oarecare e:");
+            int e = int.Parse(Console.ReadLine());
+            Console.WriteLine("Introduceti o pozitie k din vector:");
+            int k=int.Parse(Console.ReadLine());
+            Console.WriteLine("Astfel obtinem vectorul:");
+
+            for (int i = 0; i < n; i++)
+            {
+                v[i] = int.Parse(t[i]);
+                if(i == k)
+                {
+                    v[i] = e;
+                }
+                Console.Write(v[i] + " ");
+            }
+
+       
+            Console.ReadKey();
+
+        }
+
+        private static void PB4()
+        {
+            //Deteminati printr-o singura parcurgere, cea mai mica si cea mai mare valoare dintr-un vector si de cate ori apar acestea.
+            Console.WriteLine("Introduceti nr n:");
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine("Introduceti vectorul pe un singur rand cu spatiu intre numere:");
+            int[] v = new int[n];
+            string[] t = Console.ReadLine().Split(' ');
+
+            for (int i = 0; i < n; i++)
+            {
+                v[i] = int.Parse(t[i]);
+            }
+            int max = v[0];
+            int min = v[0];
+            int nmax = 1;
+            int nmin = 1;
+            for (int i = 1; i < n; i++)
+            {
+                if (v[i] == max)
+                {
+                    nmax++;
+                }
+                if (v[i] > max)
+                {
+                    max =v[i];
+                }
+                if (v[i] == min)
+                {
+                    nmin++;
+                }
+                if (v[i] < min)
+                {
+                    min =v[i];
+                }
+  
+            }
+            Console.WriteLine($"Cel mai mic element este {min}, iar cel mai mare este {max}, {min} apare de {nmin} ori, iar {max} de {nmax} ori.");
+            Console.ReadKey();
+        }
+
+        private static void PB3()
+        {
+            //Sa se determine pozitiile dintr-un vector pe care apar cel mai mic si cel mai mare element al vectorului.
+            //Pentru extra-credit realizati programul efectuand 3n/2 comparatii (in cel mai rau caz). 
+            Console.WriteLine("Introduceti nr n:");
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine("Introduceti vectorul pe un singur rand cu spatiu intre numere:");
+            int[] v = new int[n];
+            string[] t = Console.ReadLine().Split(' ');
+
+            for (int i = 0; i < n; i++)
+            {
+                v[i] = int.Parse(t[i]);
+            }
+            int max=v[0];
+            int min=v[0];
+            for (int i = 1; i < n; i++)
+            {
+                if(v[i] > max)
+                {
+                    max = i;
+                }
+                if(v[i] < min)
+                {
+                    min = i;
+                }
+            }
+            Console.WriteLine($"Cel mai mic element apare pe pozitita {min}, iar cel mai mare pe pozitia {max}.");
+            Console.ReadKey();
+        }
+    
+
+        private static void PB2()
+        {
+            //Se da un vector cu n elemente si o valoare k. Se cere sa se determine prima pozitie din vector pe care apare k.
+            //Daca k nu apare in vector rezultatul va fi -1.
+            Console.WriteLine("Introduceti nr n:");
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine("Introduceti vectorul pe un singur rand cu spatiu intre numere:");
+            int[] v = new int[n];
+            string[] t = Console.ReadLine().Split(' ');
+            Console.WriteLine("Introduceti nr k:");
+            int k = int.Parse(Console.ReadLine());
+            bool ok = false;
+
+            for (int i = 0; i < n; i++)
+            {
+                v[i] = int.Parse(t[i]);
+                if(k==v[i])
+                {
+                    Console.WriteLine($"Nr k apare pe pozitia {i}.");
+                    ok = true;
+                    break;
+                }
+            }
+            if(!ok)
+            {
+                Console.WriteLine("-1");
+            }
+
+            Console.ReadKey();
+        }
+
+    
+
+        private static void PB1()
+        {
+            //Calculati suma elementelor unui vector de n numere citite de la tastatura. Rezultatul se va afisa pe ecran.
+            Console.WriteLine("Introduceti nr n:");
+            int n=int.Parse(Console.ReadLine());
+            Console.WriteLine("Introduceti vectorul pe un singur rand cu spatiu intre numere:");
+            int[] v=new int[n];
+            string[] t = Console.ReadLine().Split(' ');
+            int s = 0;
+
+            for (int i=0; i<n; i++)
+            {
+                v[i] = int.Parse(t[i]);
+                s = s + v[i];
+            }
+            Console.WriteLine($"Suma elementelor vectorului este {s}.");
+
+            Console.ReadKey();
+        }
+
+    }
+}
